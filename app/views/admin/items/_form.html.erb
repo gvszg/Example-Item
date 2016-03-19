@@ -1,0 +1,96 @@
+<%= content_for :form_css do %>
+  <link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
+  <link href="vendor/assets/stylesheets/bootstrap-formhelpers.min.css" rel="stylesheet">
+  <link href="vendor/assets/stylesheets/bootstrap-select.min.css" rel="stylesheet">
+  <link href="vendor/assets/stylesheets/bootstrap-tags.css" rel="stylesheet">
+  <link href="vendor/assets/stylesheets/forms.css" rel="stylesheet">
+  <link href="vendor/assets/stylesheets/datetimepicker.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<% end %>
+
+<div class="row">
+  <div class="col-md-10">
+    <div class="content-box-large">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <%= item_title %>          
+        </div>
+          <div class="panel-options">
+            <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+            <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+          </div>
+        </div>
+      <div class="panel-body">
+        <%= form_for [:admin, @item], html: { class: "form-horizontal" } do |f| %>
+
+          <div class="form-group">
+            <%= f.label :name, "商品名稱", class: "col-sm-2 control-label" %>            
+            <div class="col-sm-10">
+              <%= f.text_field :name, class: "form-control", placeholder: "請輸入名稱", required: true %>
+            </div>
+          </div>
+
+          <div class="form-group">            
+            <%= f.label :price, "商品價格", class: "col-sm-2 control-label" %>    
+            <div class="col-sm-10">
+              <%= f.number_field :price, class: "form-control", placeholder: "請輸入價格", required: true %>
+            </div>
+          </div>
+
+          <div class="form-group">            
+            <%= f.label :description, "商品描述", class: "col-sm-2 control-label" %>    
+            <div class="col-sm-10">
+              <%= f.cktext_area :description, rows: 6, class: "form-control", placeholder: "請輸入描述", :ckeditor => {:language => 'zh-TW'}, required: true %>
+            </div>
+          </div>
+          
+          <%= f.fields_for :photos do |photo| %>
+            <div class="form-group">
+              <%= f.label "上傳圖片", class: "col-sm-2 control-label" %>
+              <div class="col-sm-5">
+                <%= photo.file_field :image, class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label "圖片敘述", class: "col-sm-2 control-label" %>
+              <div class="col-sm-5">
+                <%= photo.text_field :photo_intro, class: "form-control" %>
+              </div>
+            </div>
+          <% end %>
+          
+          <div class="form-group">
+            <%= f.label "商品分類", class: "col-sm-2 control-label" %>
+            <div class="col-sm-10">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+                <%= cb.label(class: "checkbox-inline") {cb.check_box(class: "checkbox") + cb.text} %>
+              <% end %>
+            </div>                   
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <%= f.submit "確認送出", class: "btn btn-primary" %>
+              <%= link_to "取消離開", admin_root_path, class: "btn btn-warning" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :form_javascript do %>
+  <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="../vendor/assets/javascripts/bootstrap-formhelpers.min.js"></script>
+  <script src="../vendor/assets/javascripts/bootstrap-select.min.js"></script>
+  <script src="../vendor/assets/javascripts/bootstrap-tags.min.js"></script>
+  <script src="../vendor/assets/javascripts/jquery.maskedinput.min.js"></script>
+  <script src="../vendor/assets/javascripts/moment.min.js"></script>
+  <script src="../vendor/assets/javascripts/jquery.bootstrap.wizard.min.js"></script>
+  <script src="../vendor/assets/javascripts/bootstrap-datetimepicker.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+  <script src="../vendor/assets/javascripts/custom.js"></script>
+  <script src="../vendor/assets/javascripts/forms.js"></script>
+<% end %>

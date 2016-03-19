@@ -1,0 +1,20 @@
+/* === Common CSS == */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+@import "styles";
+
+/* === Custom CSS === */
+/*商品顯示頁*/
+div.item-cover-words-intro {
+  min-height: 500px;  
+}
+
+.carousel {
+  width: 620px;
+  height: 420px;
+}
+
+.carousel-inner .item img {
+  margin: 0 auto;
+}
