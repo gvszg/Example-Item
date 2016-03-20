@@ -11,22 +11,34 @@ class Admin::PhotosController < AdminController
   end
 
   def create
-    @photo = @item.photos.new(photo_params)
-
-    if @photo.save!
-      flash[:notice] = "新增圖片成功"
+    # 多張圖片上傳
+    begin
+      create_photo_params[:images].each do |image|
+        @item.photos.create!(image: image)
+      end
+      flash[:notice] = "圖片上傳完成"
       redirect_to admin_item_photos_path(@item)
-    else
+    rescue => e
       flash.now[:alert] = "請確認上傳圖片是否正確"
-      render :edit
     end
+
+    # 單張圖片上傳
+    # @photo = @item.photos.new(photo_params)
+
+    # if @photo.save!
+    #   flash[:notice] = "新增圖片成功"
+    #   redirect_to admin_item_photos_path(@item)
+    # else
+    #   flash.now[:alert] = "請確認上傳圖片是否正確"
+    #   render :edit
+    # end
   end
 
   def edit    
   end
 
   def update
-    if @photo.update!(photo_params)
+    if @photo.update!(update_photo_params)
       flash[:notice] = "編輯完成"
       redirect_to admin_item_photos_path(@item)
     else
@@ -51,7 +63,11 @@ class Admin::PhotosController < AdminController
     @photo = @item.photos.find(params[:id])
   end
 
-  def photo_params
+  def create_photo_params
+    params.require(:photo).permit(:image, :photo_intro).merge!(images: params[:images])
+  end
+
+  def update_photo_params
     params.require(:photo).permit(:image, :photo_intro)
   end
 end
