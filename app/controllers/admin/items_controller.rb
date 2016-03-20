@@ -12,7 +12,6 @@ class Admin::ItemsController < AdminController
 
   def new
     @item = Item.new
-    @photo = @item.photos.new
   end
 
   def create
@@ -60,7 +59,7 @@ class Admin::ItemsController < AdminController
   private
 
   def item_params
-    params.require(:item).permit(:name, :price, :image, :slug, :description, category_ids: [], :photos_attributes => ["image", "photo_intro"])
+    params.require(:item).permit(:name, :price, :image, :slug, :description, category_ids: [])
   end
 
   def find_item

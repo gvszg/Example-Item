@@ -1,13 +1,3 @@
-<!-- <div class="item-photos-display">
-  <p class="lead">商品圖片</p>
-  <% @item.photos.each do |photo| %>
-    <div class="item-photos-list">
-      
-      
-    </div>  
-  <% end %>
-</div>
- -->
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -25,7 +15,7 @@
         <div class="item <%= "active" if photo == @photos.first %>">
           <%= image_tag(photo.image.medium.url) %>
           <div class="carousel-caption">
-            <%= photo.photo_intro %>
+            <%= raw photo.photo_intro %>
           </div>
         </div>
       <% end %>

@@ -24,9 +24,7 @@ class Item < ActiveRecord::Base
   has_many :item_categories
   has_many :categories, through: :item_categories
 
-  accepts_nested_attributes_for :photos
-
-  after_commit :remove_nil_of_image
+  # after_commit :remove_nil_of_image
 
   def default_photo
     photos.first.image.url

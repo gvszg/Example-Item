@@ -11,7 +11,7 @@
 #
 
 class Photo < ActiveRecord::Base
-  acts_as_paranoid
+  # acts_as_paranoid
   
   belongs_to :item
 
