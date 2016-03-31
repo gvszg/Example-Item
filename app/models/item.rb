@@ -16,7 +16,9 @@
 class Item < ActiveRecord::Base
   scope :recent, -> { order(id: :DESC) }
 
-  scope :sort, -> { order(position: :ASC) }
+  # scope :sort, -> { order(position: :ASC) }
+
+  scope :sort, lambda { order(position: :ASC) }
 
   enum status: { on_shelf: 0, off_shelf: 1 }
 

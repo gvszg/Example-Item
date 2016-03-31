@@ -12,7 +12,10 @@
     <% @category_items.each do |item| %>
       <tr id="item_<%= item.id %>">
         <td>
-          <span><%= item.position %></span>
+          <button class="btn btn-primary btn-xs" type="button">
+            排名：<span class="badge"><%= item.position %></span>
+          </button>
+          <!-- <span id="item-<%= item.id %>-position"><%= item.position %></span> -->
           <span class="handle btn btn-default btn-xs"><i class="fa fa-arrows"></i>按住我</span>
         </td>
         <td>
