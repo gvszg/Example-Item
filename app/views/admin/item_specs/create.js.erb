@@ -1,0 +1,68 @@
+// $("form#new-item-spec").remove();
+// $("tr#spec-<%= @item_spec.id %>").appendTo("#specs-table-list");
+<% if @item_spec.new_record? %>
+  alert("Failed to upload images: <%= j @item_spec.errors.full_messages.join(', ').html_save %>");
+<% else %>
+  $(function(){
+    new PNotify({
+      title: '已新增 <%= @item_spec.style %> 樣式'
+    });
+  });
+//   $("#specs-table-list").html("<tr id="spec-34">
+//           <td>
+//             <img class="thumbnail" src="/uploads/item_spec/style_pic/34/TB2ygzHkVXXXXXxXpXXXXXXXXXX___157608180.jpg_600x600.jpg" alt="Tb2ygzhkvxxxxxxxpxxxxxxxxxx   157608180.jpg 600x600">
+//           </td>
+//           <td id="status-34">
+//             <a data-remote="true" rel="nofollow" data-method="patch" href="/admin/items/1/item_specs/34/off_shelf">
+//               上架中
+// </a>          </td>
+//           <td>拉拉熊</td>
+//           <td>
+//             <div>
+//               <p class="lead spec-style-stock">目前庫存數：<span id="style-34-stock">12122</span></p>
+//             </div>
+//             <div class="update-stock-manullaly">
+//               <form class="form-inline" id="edit_item_spec_34" action="/admin/items/1/item_specs/34" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch">
+//               <div class="form-group col-md-4">
+//                 <div class="input-group">
+//                   <div class="input-group-addon"><i class="fa fa-archive"></i></div>
+//                   <input min="0" class="form-control" type="number" value="12122" name="item_spec[style_amount]" id="item_spec_style_amount">
+//                 </div>
+//               </div>
+//               <button type="submit" class="btn btn-warning">修改數量</button>                
+// </form>            </div>
+//           </td>
+//           <td>
+//             <button name="button" type="button" data-toggle="modal" data-target="#spec-34-edit" class="btn btn-default btn-xs">編輯</button>
+//             <!-- Modal -->
+// <div class="modal fade" id="spec-34-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+//   <div class="modal-dialog" role="document">
+//     <div class="modal-content">
+//       <div class="modal-header">
+//         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+//         <h4 class="modal-title" id="myModalLabel">編輯樣式</h4>
+//       </div>
+//       <form class="form-horizontal" id="edit_item_spec_34" action="/admin/items/1/item_specs/34" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="Y62nMAXoVymzxP0USmCO43ko0BbqX8veiD7rXs0Hba+9cjkK5tew1+NvT5OouAREUNlb2oA10iV9DlJx2dajiw==">
+//           <div class="form-group">            
+//             <label class="col-sm-2 control-label" for="item_spec_style">樣式名稱</label>    
+//             <div class="col-sm-9">
+//               <textarea rows="6" id="item-spec-34" class="form-control" placeholder="請輸入描述" name="item_spec[style]">拉拉熊</textarea>        
+//             </div>
+//           </div>
+        
+//           <div class="form-group">
+//             <div class="col-sm-offset-2 col-sm-10">
+//               <input type="submit" name="commit" value="確認送出" class="btn btn-primary">
+//             </div>
+//           </div>
+        
+// </form>      <div class="modal-footer">
+//         <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+//             <a data-confirm="確定刪除?" data-disable-with="刪除中..." class="btn btn-danger btn-xs" rel="nofollow" data-method="delete" href="/admin/items/1/item_specs/34">刪除</a>
+//           </td>
+//         </tr>")
+<% end %>
