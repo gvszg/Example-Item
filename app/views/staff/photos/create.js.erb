@@ -1,0 +1,9 @@
+<% if @photo.new_record? %>
+  alert("Failed to upload images: <%= j @photo.errors.full_messages.join(', ').html_save %>");
+<% else %>
+  $(function(){
+    new PNotify({
+      title: '已新增商品圖片'
+    });
+  });
+<% end %>
