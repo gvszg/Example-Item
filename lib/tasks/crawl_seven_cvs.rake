@@ -6,41 +6,47 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 namespace :seven_cvs do
   task :get_store_all => :environment do
     County.where("store_type = ?", "4").each do |county|
+    # county = County.where("store_type = ?", "4").first
+
       county.towns.each do |town|
-        url = URI.parse("https://emap.pcsc.com.tw/EMapSDK.aspx")
-        option = {
-                  'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36',
-                  'Cookie' => 'ASP.NET_SessionId=4jsarnxw45hhf0rguy4y50i1; gsScrollPos=0',
-                  'X-Requested-With'=>'XMLHttpRequest',
-                  'commandid'=>'SearchStore',
-                  'city' => county.name,
-                  'town' => town.name,
-                }
-        resp, data = Net::HTTP.post_form(url, option)
-        resp_page = Nokogiri::HTML(resp.body)
-        resp_page.css("geoposition").each do |element|
-          if town.stores.find_by(store_code: element.css("poiid").children.to_s.strip)
-            next
-          else            
-            store = Store.new
-            store.county_id = county.id
-            store.town_id = town.id
-            store.store_type = 4
-            store.store_code = element.css("poiid").children.to_s.strip
-            store.name = element.css("poiname").children.to_s
-            store.phone = element.css("telno").children.to_s.strip
-            store.address = element.css("address").children.to_s
-            town.roads.each do |road|
-              if store.address.include?(road.name)
-                store.road = road
-              end
+      # town = county.towns.first
+
+        town.roads.each do |road|
+        # road = town.roads.first
+
+          url = URI.parse("https://emap.pcsc.com.tw/EMapSDK.aspx")
+          option = {
+                    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36',
+                    'Cookie' => 'ASP.NET_SessionId=4jsarnxw45hhf0rguy4y50i1; gsScrollPos=0',
+                    'X-Requested-With'=>'XMLHttpRequest',
+                    'commandid'=>'SearchStore',
+                    'city' => county.name,
+                    'town' => town.name,
+                    'roadname' => road.name
+                  }
+          resp, data = Net::HTTP.post_form(url, option)
+          resp_page = Nokogiri::HTML(resp.body)
+          resp_page.css("geoposition").each do |element|
+            if road.stores.find_by(store_code: element.css("poiid").children.to_s.strip)
+              next
+            else    
+              store = Store.new
+              store.county_id = county.id
+              store.town_id = town.id
+              store.store_type = 4
+              store.store_code = element.css("poiid").children.to_s.strip
+              store.name = "7-11" + element.css("poiname").children.to_s + "門市"
+              store.phone = element.css("telno").children.to_s.strip
+              store.address = element.css("address").children.to_s
+              store.road = road
+              store.save!
+              
+              puts store.road.name if store.road
+              puts store.store_code
+              puts store.name
+              puts store.phone
+              puts store.address
             end
-            store.save!
-            puts store.road.name if store.road
-            puts store.store_code
-            puts store.name
-            puts store.phone
-            puts store.address
           end
         end
       end
@@ -59,15 +65,18 @@ namespace :seven_cvs do
                   'city' => county.name,
                   'town' => town.name,
                 }
+
         resp, data = Net::HTTP.post_form(url, option)
         resp_page = Nokogiri::XML(resp.body)
         resp_page.css("RoadName").each do |element|
-          if town.roads.find_by(name: element.css("rd_name_1").children.to_s)
+          result_road_name = element.css("rd_name_1").children.to_s + element.css("section_1").children.to_s
+
+          if town.roads.find_by(name: result_road_name)
             next
           else
             road = Road.new
             road.town_id = town.id
-            road.name = element.css("rd_name_1").children.to_s
+            road.name = result_road_name
             road.store_type = 4
             road.save!
             puts road.name
