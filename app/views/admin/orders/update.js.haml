@@ -1,0 +1,4 @@
+$('#order-#{@order.id}').replaceWith('#{j(render :partial => "update", locals: { order: @order })}');
+$(function(){
+new PNotify({title: '#{j(@result)}'});
+});
