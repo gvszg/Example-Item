@@ -1,0 +1,38 @@
+.row
+  .row
+    .col-md-12.panel-warning
+      .content-box-header.panel-heading
+        .panel-title 商品銷售金額列表
+      .content-box-large.box-with-header
+        .panel-body
+          .report-type
+            .time_field_button.pull-right
+              %ul.nav.nav-pills
+                %li{class: params[:time_field].nil? ? "active" : ""}= link_to "全部", item_revenue_result_admin_sales_reports_path
+                %li{class: params[:time_field] == "month" ? "active" : ""}= link_to "按月排序", item_revenue_result_admin_sales_reports_path(:time_field => "month")
+                %li{class: params[:time_field] == "week" ? "active" : ""}= link_to "按週排序", item_revenue_result_admin_sales_reports_path(:time_field => "week")
+                %li{class: params[:time_field] == "day" ? "active" : ""}= link_to "按日排序", item_revenue_result_admin_sales_reports_path(:time_field => "day")
+            %ul.nav.nav-tabs
+              %li.active{:role => "presentation"}
+                = link_to "商品銷售金額", item_revenue_result_admin_sales_reports_path
+              %li{:role => "presentation"}
+                = link_to "商品銷售數量", item_sales_result_admin_sales_reports_path
+          %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %thead
+              %tr
+                %th{width: "10%"} 商品編號
+                %th{width: "15%"} 商品分類
+                %th{width: "55%"} 商品名稱
+                %th 銷售金額
+            %tbody
+              - @item_revenue.each do |item|
+                %tr
+                  %td= link_to item.source_item_id, admin_item_path(item.item), target: "_blank"
+                  %td
+                    - item.categories.each do |category|
+                      %ul.list-unstyled
+                        %li= link_to category.name, admin_category_path(category), target: "_blank"
+                  %td= link_to item.item_name, admin_item_path(item.item), target: "_blank"
+                  %td
+                    %p.lead.spec-style-stock
+                      %span= item.sum_item_revenue
