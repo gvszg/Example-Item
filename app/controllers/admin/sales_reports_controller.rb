@@ -2,6 +2,7 @@ class Admin::SalesReportsController < AdminController
   before_action :require_manager
 
   def item_sales_result
+    # binding.pry
     if %w[month week day].include?(params[:time_field])
       @item_sales = OrderItem.created_at_within(time_until_range).sort_by_sales
     else
