@@ -10,6 +10,10 @@ class Api::V1::OrdersController < ApiController
       order.total = params[:total]
       order.save!
 
+      # 若registration_id的user_id不存在且非匿名購買，存入order.user_id
+      device_of_order = DeviceRegistration.find_by(registration_id: params[:registration_id])
+      device_of_order.update_attributes!(user_id: order.user_id) unless device_of_order.user_id.present? and order.user_id == 31
+
       # 收件資訊 OrderInfo
       info = OrderInfo.new
       info.order_id = order.id
