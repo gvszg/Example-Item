@@ -1,0 +1,13 @@
+.row
+  .col-md-12.panel-warning
+    .content-box-header.panel-heading
+      .panel-title 銷售成果報表
+    .content-box-large.box-with-header
+      .page-type
+        %ul.nav.nav-tabs
+          %li.active{:role => "presentation"}
+            = link_to "成本資料輸入", cost_statistics_index_admin_sales_reports_path
+          %li{:role => "presentation"}
+            = link_to "銷售查詢"
+      .panel-body
+        = render partial: "cost_form_and_data_list"
