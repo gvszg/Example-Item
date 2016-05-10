@@ -26,6 +26,10 @@ class Admin::SalesReportsController < AdminController
     redirect_to cost_statistics_index_admin_sales_reports_path
   end
 
+  def sales_income_result
+    
+  end
+
   private
 
   def time_until_range
