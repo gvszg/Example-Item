@@ -16,4 +16,8 @@ module Admin::SalesReportsHelper
   def display_date(time)
     time.strftime("%Y-%m-%d")
   end
+
+  def gross_profit(sales_income, cost_of_goods, cost_of_freight_in, cost_ship_fee)
+    sales_income - cost_of_goods - cost_of_freight_in - cost_ship_fee
+  end
 end
