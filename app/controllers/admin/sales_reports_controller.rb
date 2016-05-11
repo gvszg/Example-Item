@@ -27,14 +27,17 @@ class Admin::SalesReportsController < AdminController
   end
 
   def sales_income_result
-    @total_sales_income = OrderItem.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("item_quantity * item_price")
+    @total_sales_income = OrderItem.where(created_at: search_date_params).sum("item_quantity * item_price")
 
-    @total_cost_of_goods = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_goods")
-    @total_cost_of_freight_in = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_freight_in")
-    @total_cost_of_advertising = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_advertising")
+    @total_cost_of_goods = CostStatistic.where(cost_date: search_date_params).sum("cost_of_goods")
+    @total_cost_of_freight_in = CostStatistic.where(cost_date: search_date_params).sum("cost_of_freight_in")
+    @total_cost_of_advertising = CostStatistic.where(cost_date: search_date_params).sum("cost_of_advertising")
 
-    @total_order_amount = Order.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).count
-    @total_cost_ship_fee = Order.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("ship_fee")
+    @total_order_quantity = Order.where(created_at: search_date_params).count
+    @total_cost_ship_fee = Order.where(created_at: search_date_params).sum("ship_fee")
+    @cancelled_order_quantity = Order.where(created_at: search_date_params, status: 4).count
+    @cancelled_order_amount = Order.where(created_at: search_date_params, status: 4).sum("items_price")
+    @cancelled_order_ship_fee = Order.where(created_at: search_date_params, status: 4).sum("ship_fee")
   end
 
   private
@@ -45,5 +48,9 @@ class Admin::SalesReportsController < AdminController
 
   def cost_statistic_params
     params.require(:cost_statistic).permit(:cost_of_goods, :cost_of_advertising, :cost_of_freight_in, :cost_date)
+  end
+
+  def search_date_params
+    params[:start_cost_date].to_date..params[:end_cost_date].to_date
   end
 end

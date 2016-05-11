@@ -46,9 +46,9 @@
               %td= @total_cost_of_goods
               %td= @total_cost_of_freight_in
               %td= @total_cost_ship_fee
-              %td= @total_order_amount
+              %td= @total_order_quantity
               %td= @total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee
-              %td= (@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_amount
+              %td= (@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity
               %td= @total_cost_of_advertising
-              %td= @total_cost_of_advertising / @total_order_amount
-              %td= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_amount) - (@total_cost_of_advertising / @total_order_amount)
+              %td= @total_cost_of_advertising / @total_order_quantity
+              %td= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity) - (@total_cost_of_advertising / @total_order_quantity)
