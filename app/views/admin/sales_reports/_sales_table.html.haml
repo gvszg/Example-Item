@@ -4,62 +4,56 @@
       %tbody
         %tr
           %td.bg-success
-            %p 收入與獲利
-        %tr
-          %td
-            %span.data-subject 總銷售金額
-            %span.data-value.pull-right= @total_sales_income
+            %p 銷售狀況
         %tr
           %td 
-            %span.data-subject 總毛利
+            %span.data-subject a. 總訂單數
+            %span.data-value.pull-right= @total_order_quantity
+        %tr
+          %td
+            %span.data-subject b. 總銷售金額
+            %span.data-value.pull-right= @total_sales_income
+        %tr
+          %td
+            %span.data-subject c. 總貨物成本
+            %span.data-value.pull-right= @total_cost_of_goods
+        %tr
+          %td
+            %span.data-subject d. 總進貨物流費
+            %span.data-value.pull-right= @total_cost_of_freight_in
+        %tr
+          %td 
+            %span.data-subject e. 總出貨物流費
+            %span.data-value.pull-right= @total_cost_ship_fee
+        %tr
+          %td
+            %span
+        %tr
+          %td 
+            %span.data-subject f. 毛利(b - c - d - e)
             %span.data-value.pull-right= @total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee
         %tr
           %td 
-            %span.data-subject 平均訂單毛利
+            %span.data-subject g. 平均訂單毛利(f / a)
             %span.data-value.pull-right= (@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity
-        
-        %tr
-          %td 
-            %span.data-subject 平均扣廣告訂單毛利
-            %span.data-value.pull-right= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity) - (@total_cost_of_advertising / @total_order_quantity)
-        %tr
-          %td 
-            %span.data-subject 實際盈餘
-            %span.data-value.pull-right= @surplus
-        %tr
-          %td 
-            %span.data-subject 實際平均訂單盈餘
-            %span.data-value.pull-right= @surplus / (@total_order_quantity - @cancelled_order_quantity)
   .col-md-3
     %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %tbody
         %tr
           %td.bg-danger
-            %p 成本與費用
-        %tr
-          %td
-            %span.data-subject 總貨物成本
-            %span.data-value.pull-right= @total_cost_of_goods
-        %tr
-          %td
-            %span.data-subject 總進貨物流費
-            %span.data-value.pull-right= @total_cost_of_freight_in
+            %p 廣告費用        
         %tr
           %td 
-            %span.data-subject 總出貨物流費
-            %span.data-value.pull-right= @total_cost_ship_fee
-        %tr
-          %td 
-            %span.data-subject 總訂單數
-            %span.data-value.pull-right= @total_order_quantity
-        %tr
-          %td 
-            %span.data-subject 總廣告費用
+            %span.data-subject h. 總廣告費用
             %span.data-value.pull-right= @total_cost_of_advertising
         %tr
           %td 
-            %span.data-subject 平均廣告費用
+            %span.data-subject i. 平均廣告費用(g / a)
             %span.data-value.pull-right= @total_cost_of_advertising / @total_order_quantity
+        %tr
+          %td 
+            %span.data-subject j. 平均扣廣告訂單毛利(g - i)
+            %span.data-value.pull-right= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity) - (@total_cost_of_advertising / @total_order_quantity)
   .col-md-3
     %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %tbody
@@ -68,13 +62,21 @@
             %p 取消訂購與退貨
         %tr
           %td 
-            %span.data-subject 取消訂單數
+            %span.data-subject k. 取消訂單數
             %span.data-value.pull-right= @cancelled_order_quantity
         %tr
           %td 
-            %span.data-subject 取消訂單總金額
+            %span.data-subject l. 取消訂單總金額
             %span.data-value.pull-right= @cancelled_order_amount
         %tr
           %td 
-            %span.data-subject 取消訂單總物流費用
+            %span.data-subject m. 取消訂單總物流費用
             %span.data-value.pull-right= @cancelled_order_ship_fee
+        %tr
+          %td 
+            %span.data-subject n. 實際毛利(f - l)
+            %span.data-value.pull-right= @surplus
+        %tr
+          %td 
+            %span.data-subject o. 實際平均訂單毛利(f - l / a - k)
+            %span.data-value.pull-right= @surplus / (@total_order_quantity - @cancelled_order_quantity)

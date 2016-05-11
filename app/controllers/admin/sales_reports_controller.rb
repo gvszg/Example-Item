@@ -41,7 +41,7 @@ class Admin::SalesReportsController < AdminController
       @cancelled_order_ship_fee = Order.where(created_at: search_date_params, status: 4).sum("ship_fee")
 
       @gross = ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity) - (@total_cost_of_advertising / @total_order_quantity)
-      @surplus = @gross - @cancelled_order_amount - @cancelled_order_ship_fee
+      @surplus = @gross - @cancelled_order_amount
     end
   end
 
