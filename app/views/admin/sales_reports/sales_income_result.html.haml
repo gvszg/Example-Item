@@ -27,28 +27,4 @@
         %hr
         %p.lead 盈餘查詢結果
         %p.lead 查詢日期範圍：#{params[:start_cost_date]} -- #{params[:end_cost_date]}
-        %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-          %thead
-            %tr
-              %th 總銷售金額
-              %th 總貨物成本
-              %th 總進貨物流費
-              %th 總出貨物流費
-              %th 總訂單數
-              %th 總毛利
-              %th 平均訂單毛利
-              %th 總廣告費用
-              %th 平均廣告費用
-              %th 平均訂單盈餘
-          %tbody
-            %tr
-              %td= @total_sales_income
-              %td= @total_cost_of_goods
-              %td= @total_cost_of_freight_in
-              %td= @total_cost_ship_fee
-              %td= @total_order_quantity
-              %td= @total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee
-              %td= (@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity
-              %td= @total_cost_of_advertising
-              %td= @total_cost_of_advertising / @total_order_quantity
-              %td= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_quantity) - (@total_cost_of_advertising / @total_order_quantity)
+        = render partial: "sales_table"
