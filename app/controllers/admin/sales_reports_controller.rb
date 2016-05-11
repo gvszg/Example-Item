@@ -27,7 +27,14 @@ class Admin::SalesReportsController < AdminController
   end
 
   def sales_income_result
-    
+    @total_sales_income = OrderItem.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("item_quantity * item_price")
+
+    @total_cost_of_goods = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_goods")
+    @total_cost_of_freight_in = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_freight_in")
+    @total_cost_of_advertising = CostStatistic.where(cost_date: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("cost_of_advertising")
+
+    @total_order_amount = Order.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).count
+    @total_cost_ship_fee = Order.where(created_at: params[:start_cost_date].to_date..params[:end_cost_date].to_date).sum("ship_fee")
   end
 
   private

@@ -1,12 +1,12 @@
 .row
   .col-md-12.panel-warning
     .content-box-header.panel-heading
-      .panel-title 銷售成本與收益
+      .panel-title 銷售成本與盈餘
     .content-box-large.box-with-header
       .page-type
         %ul.nav.nav-tabs
           %li.active{:role => "presentation"}
-            = link_to "銷售查詢", sales_income_result_admin_sales_reports_path
+            = link_to "銷售盈餘查詢", sales_income_result_admin_sales_reports_path
           %li{:role => "presentation"}
             = link_to "成本資料輸入", cost_statistics_index_admin_sales_reports_path
       .panel-body
@@ -25,7 +25,8 @@
                 = submit_tag "確認", class: "btn btn-primary"
                 = link_to "取消"
         %hr
-        %p.lead 收益查詢結果
+        %p.lead 盈餘查詢結果
+        %p.lead 查詢日期範圍：#{params[:start_cost_date]} -- #{params[:end_cost_date]}
         %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
           %thead
             %tr
@@ -40,3 +41,14 @@
               %th 平均廣告費用
               %th 平均訂單盈餘
           %tbody
+            %tr
+              %td= @total_sales_income
+              %td= @total_cost_of_goods
+              %td= @total_cost_of_freight_in
+              %td= @total_cost_ship_fee
+              %td= @total_order_amount
+              %td= @total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee
+              %td= (@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_amount
+              %td= @total_cost_of_advertising
+              %td= @total_cost_of_advertising / @total_order_amount
+              %td= ((@total_sales_income - @total_cost_of_goods - @total_cost_of_freight_in - @total_cost_ship_fee) / @total_order_amount) - (@total_cost_of_advertising / @total_order_amount)
