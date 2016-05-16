@@ -33,6 +33,7 @@ class Item < ActiveRecord::Base
   has_many :categories, through: :item_categories
   has_many :specs, class_name: "ItemSpec", dependent: :destroy
   has_many :notifications, dependent: :destroy
+  belongs_to :taobao_supplier
 
   validates_presence_of :name, :price, :description
   validates_numericality_of :price, only_integer: true, greater_than: 0
