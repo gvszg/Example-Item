@@ -81,4 +81,8 @@ module Admin::ItemsHelper
   def update_shelf_path(item)
     item.on_shelf? ? off_shelf_admin_item_path(item) : on_shelf_admin_item_path(item)
   end
+
+  # def taobao_supplier_options
+  #   options_for_select(TaobaoSupplier.all.collect { |supplier| ["#{supplier.id}: #{supplier.name}", supplier.id] }, { include_blank: "請選擇商家" })
+  # end
 end

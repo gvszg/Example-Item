@@ -36,8 +36,13 @@
           %dd
             = link_to @item.url, target: "_blank" do
               按此前往淘寶商品
+          %dt 商家名稱
+          %dd
+            = link_to @item.supplier_name, @item.supplier_link, target: "_blank" rescue "沒有商家資料"
+            / = @item.supplier_name rescue nil
           %dt 商品名稱
-          %dd= @item.name
+          %dd
+            = @item.name
           %dt 商品狀態
           %dd{:id => "status-#{@item.id}"}
             = link_to ( update_shelf_path(@item) ), method: :patch, remote: true do

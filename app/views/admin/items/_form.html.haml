@@ -3,6 +3,11 @@
   .col-sm-10
     = f.url_field :url, class: "form-control", placeholder: "請輸入連結", required: true
 .form-group
+  = f.label :taobao_supplier_id, "淘寶商家", class: "col-sm-2 control-label"
+  .col-sm-10
+    / = f.select :taobao_supplier_id, taobao_supplier_options, { class: "form-control", placeholder: "請輸入連結", required: true }
+    = f.select :taobao_supplier_id, TaobaoSupplier.all.collect { |supplier| ["編號#{supplier.id}：#{supplier.name}", supplier.id] }, { include_blank: "請選擇商家" }, { class: "form-control", placeholder: "請輸入連結", required: true }
+.form-group
   = f.label :name, "商品名稱", class: "col-sm-2 control-label"
   .col-sm-10
     = f.text_field :name, class: "form-control", placeholder: "請輸入名稱", required: true
