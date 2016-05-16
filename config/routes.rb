@@ -102,6 +102,8 @@ Rails.application.routes.draw do
         get "sales_income_result"
       end
     end
+
+    resources :taobao_suppliers, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
   # API for App
