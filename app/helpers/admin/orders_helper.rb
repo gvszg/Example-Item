@@ -39,6 +39,14 @@ module Admin::OrdersHelper
   end
 
   def logistics_status(order)
-    Logistics_Status[order.logistics_status_code] if order.logistics_status_code
+    if order.logistics_status_code
+      Logistics_Status[order.logistics_status_code]
+    else
+      "尚未建立資料"
+    end
+  end
+
+  def link_to_update_logistics_status(order)
+    link_to "更新物流狀態", status_update_allpay_index_path(order_id: order.id), { class: "btn btn-default btn-sm", method: :post, remote: true }
   end
 end

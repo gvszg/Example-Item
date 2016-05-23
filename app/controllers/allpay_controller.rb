@@ -1,4 +1,6 @@
 class AllpayController < ActionController::Base
+  # before_action :require_manager, only: [:status_update]
+
   def create
     if PostToAllpayWorker.new.perform(params[:order_id], create_reply_allpay_index_url, status_update_allpay_index_url)
       @message = "已將編號：#{params[:order_id]} 成功傳送到歐付寶"
@@ -8,6 +10,10 @@ class AllpayController < ActionController::Base
   end
 
   def status_update
+    @order = Order.find(params[:order_id])
+    # binding.pry
+    @order.reload
+    @message = "訂單：#{@order.id}的物流狀態已更新為：#{Logistics_Status[@order.logistics_status_code]}"
   end
 
   def create_reply

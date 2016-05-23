@@ -1,0 +1,9 @@
+- unless @order.logistics_status_code.nil?
+  $("#logistis-#{@order.id}").html('#{Logistics_Status[@order.logistics_status_code]}')
+  $(function(){
+  new PNotify({title: "#{j(@message)}"});
+  });
+- else
+  $(function(){
+  new PNotify({title: "尚無狀態資料"});
+  });
