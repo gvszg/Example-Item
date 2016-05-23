@@ -1,0 +1,106 @@
+module Admin::ItemsHelper
+  def item_title
+    action_name == "new" ? "新增商品" : "編輯商品"
+  end
+
+  def item_icon(photo)
+    if photo.present?
+      image_url = photo.icon.url
+    else
+      image_url = "http://placehold.it/150x100&text=No Pic"      
+    end
+    
+    image_tag(image_url, class: "thumbnail")
+  end
+
+  def item_cover(photo)
+    if photo.present?
+      image_url = photo.url
+    else
+      image_url = "http://placehold.it/450x300&text=No Pic"      
+    end
+    
+    image_tag(image_url, class: "thumbnail")
+  end
+
+  def item_photo(photo, size=nil)
+    if photo.present?
+      if size.present?
+        image_url = photo.image.send(size).url
+      else        
+        image_url = photo.image.url
+      end
+    else
+      case size
+      when :cover
+        volume = "450x300"
+      when :thumb
+        volume = "150x100"
+      else
+        volume = "600x400"
+      end
+
+      image_url = "http://placehold.it/#{volume}&text=No Pic"
+    end
+
+    image_tag(image_url, :class => "thumbnail")
+  end
+
+  def spec_photo(spec)
+    if spec.style_pic.present?
+      image_url = spec.style_pic.url
+    else
+      image_url = "http://placehold.it/150x150&text=No Pic"
+    end
+
+    image_tag(image_url, :class => "thumbnail")
+  end
+
+  def show_item_stock(amount)
+    amount == 0 ? "無庫存" : amount
+  end
+
+  def item_status(status)
+    case status
+    when "on_shelf"
+      return "上架中"
+    when "off_shelf"
+      return "已下架" 
+    end
+  end
+
+  def spec_status(status)
+    case status
+    when "on_shelf"
+      return "上架中"
+    when "off_shelf"
+      return "已下架" 
+    end
+  end
+
+  def update_shelf_path(item)
+    item.on_shelf? ? off_shelf_admin_item_path(item) : on_shelf_admin_item_path(item)
+  end
+
+  def link_to_supplier(item)
+    link_to item.supplier_name, item.supplier_url, target: "_blank" rescue "沒有商家資料"
+  end
+
+  def category_checkbox(cb,f)
+    if cb.object.id == 10 || cb.object.id == 11
+      if f.object.new_record?
+        cb.label(class: "checkbox-inline") {cb.check_box(class: "checkbox", disabled: "disabled", checked:"checked") + cb.text}
+      else
+        cb.label(class: "checkbox-inline") {cb.check_box(class: "checkbox", disabled: "disabled") + cb.text}
+      end
+    else
+      cb.label(class: "checkbox-inline") {cb.check_box(class: "checkbox") + cb.text}
+    end
+  end
+
+  def categories_checkox(f)
+    f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb|
+      category_checkbox(cb,f)
+    end
+  end
+end

@@ -1,0 +1,107 @@
+.order-box{
+  >.name{
+    font-size: $product-block-name-font-size;
+    border-bottom: $pink-dash-border;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    font-weight: bolder;
+  }
+  > form{
+    .header{
+      padding: 0 ;
+      border-top: transparent;
+      height: 35px;
+      line-height: 35px;
+      margin-bottom: 25px;
+    }
+    .dollar{
+      color: #ff2843;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+    .price{
+      border-top: transparent;
+      color: $price-font-color;
+      font-size: $order-box-price-font-size;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+    .spec-select{
+      height: 35px;
+      margin-bottom: 25px;
+    }
+    .quantity-box{
+      .quantity, .quantity-minus, .quantity-plus{
+        height: 35px;
+        width: 30px;
+        margin-bottom: 25px;
+        position: relative;
+      }
+      .quantity{
+        left: -4px;
+      }
+      .quantity-plus{
+        left: -8px;
+      }
+    }
+
+    .info{
+      position: relative;
+      top: 8px;
+      margin-bottom: 30px;
+    }
+    .add-cart{
+      > .add{
+        width: 49%;
+        height: 50px;
+        border-radius: 4px;
+        background-color: #ff8080;
+        border: solid 1px transparent;
+        font-size: 1.285714em;
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      > .-wishlist{
+        display: inline-block;
+        text-align: center;
+        line-height: 45px;
+        margin-right: 1%;
+        background-color: #fff;
+        color: #ff8080;
+        border: solid 1px #ff8080;
+      }
+      > .customer{
+        font-size: $order-box-customer-font-size;
+        float: right;
+        > a{
+          color: $order-box-customer-font-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .order-box {
+    padding-left: 10px;
+    padding-right: 10px;
+    > .name {
+      margin-bottom: 10px;
+      font-size: $mobile-product-block-name-font-size;
+    }
+    form{
+      .header{
+        height: 30px;
+      }
+      .add-cart{
+        .add{
+          max-width: 400px;
+          width: 100%;
+        }
+        > .customer{
+          float: none;
+        }
+      }
+    }
+  }
+}
