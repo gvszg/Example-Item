@@ -1,0 +1,12 @@
+zh-TW:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "校驗失敗: %{errors}"
+        restrict_dependent_destroy:
+          has_one: 由於 %{record} 需要此記錄，所以無法移除記錄
+          has_many: 由於 %{record} 需要此記錄，所以無法移除記錄
+  on_shelf: "已上架"
+  off_shelf: "已下架"
+  will_paginate:
+    page_gap: "......"
