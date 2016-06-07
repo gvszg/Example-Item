@@ -9,4 +9,5 @@
       %tr
         %td= user.id
         %td= user.user_name
-        %td= link_to "發送訊息", new_message_record_admin_message_path(user_id: user.id), class: "btn btn-primary", method: :post
+        %td= link_to_create_record(user, @message)
+        / %td= link_to "發送訊息", new_message_record_admin_message_path(user_id: user.id), class: "btn btn-primary", method: :post

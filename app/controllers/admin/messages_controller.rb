@@ -24,7 +24,7 @@ class Admin::MessagesController < AdminController
 
   def show
     @message = Message.find(params[:id])
-    @send_records = @message.users
+    @send_records = @message.message_records
   end
 
   def new_message_record
@@ -37,8 +37,8 @@ class Admin::MessagesController < AdminController
     # @message = Message.find(params[:message_id])
     # @message = Message.find(params[:id])
     # @user = User.find(params[:user_id])
-    binding.pry
-    
+    # binding.pry
+
     if MessageRecord.create(message_id: params[:id], user_id: params[:user_id])
       flash[:notice] = "成功發送通知訊息"
       redirect_to :back
