@@ -1,0 +1,15 @@
+.col-md-10
+  .content-box-large
+    .breadcrumb-topbar
+      %ol.breadcrumb
+        %li
+          %a{:href => admin_root_path} 萌萌屋
+        %li
+          %a{:href => admin_messages_path} 通知訊息列表
+        %li.active 新增訊息
+    .panel-heading
+      .panel-title
+        %h3 新增訊息
+    .panel-body
+      = form_for [:admin, @message], html: { class: "form-horizontal" } do |f|
+        = render partial: "message_form", locals: { f: f }

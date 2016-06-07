@@ -1,0 +1,17 @@
+.content-box-large
+  .breadcrumb-topbar
+    %ol.breadcrumb
+      %li
+        %a{:href => admin_root_path} 萌萌屋
+      %li.active 通知訊息列表
+  .pull-right
+    = link_to "新增訊息", new_admin_message_path, { class: "btn btn-primary" }
+  %h2 通知訊息列表
+  .category-all-items
+    .panel-body
+      .apple_pagination
+        = will_paginate @messages, :container => false
+      %br/
+      = render "message_table"
+      .apple_pagination
+        = will_paginate @messages, :container => false

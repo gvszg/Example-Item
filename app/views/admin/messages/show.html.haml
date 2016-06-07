@@ -1,0 +1,29 @@
+.content-box-large
+  %h2
+    通知訊息#{@message.id}
+  .message-infos.well
+    %p.pull-right
+      = link_to "通知使用者", new_message_record_admin_message_path(@message), class: "btn btn-primary"
+      = link_to "回上頁", admin_messages_path, class: "btn btn-default"
+    %p.lead 訊息資料：
+    %dl.dl-horizontal
+      %dt 訊息編號
+      %dd= @message.id
+      %dt 訊息類型
+      %dd= @message.message_type
+      %dt 訊息標題
+      %dd= @message.title
+      %dt 訊息內容
+      %dd= @message.content
+  .message-records-list.well
+    %p.lead 訊息通知紀錄：
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th 已通知使用者
+          %th 通知時間
+      %tbody
+        - @send_records.each do |record|
+          %tr
+            %td= record.user.username
+            %td= record.created_at
