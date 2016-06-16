@@ -1,5 +1,8 @@
 class Order < ActiveRecord::Base
   include OrderConcern
+
+  Order::Email_Format = /\A[a-z0-9._%+]+@[a-z0-9.]+\.[a-z]{2,4}\Z/i
+  Order::Phone_Format = /\A(0)(9)+\d{8}\Z/
   
   scope :recent, -> { order(id: :DESC) }
   scope :count_status, ->(status) { where(status: status).count }
@@ -31,11 +34,20 @@ class Order < ActiveRecord::Base
     self.joins(:info).where(order_infos: {ship_phone: phone, ship_email: email}).recent
   end
 
-  # def inspec_order_blacklist
-  #   if OrderBlacklist.email_blacklists.include?(self.ship_email) || OrderBlacklist.phone_blacklists.include?(self.ship_phone)
-  #     create_new_blacklist
-  #   end
-  # end
+  def check_blacklists
+    OrderBlacklist.email_blacklists.include?(self.ship_email) || OrderBlacklist.phone_blacklists.include?(self.ship_phone)
+  end
+
+  def check_data_format
+    # email_format = /\A[a-z0-9._%+]+@[a-z0-9.]+\.[a-z]{2,4}\Z/i
+    # phone_format = /\A(0)(9)+\d{8}\Z/
+
+    !(Order::Email_Format.match(self.ship_email)) || !(Order::Phone_Format.match(self.ship_phone))
+    
+    # if self.ship_email && self.ship_phone
+    #   email_format.match(self.ship_email) && phone_format.match(self.ship_phone)
+    # end
+  end
 
   def survey_mail
     mail_records.find_by(mail_type: MailRecord.mail_types["satisfaction_survey"])

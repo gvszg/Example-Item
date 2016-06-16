@@ -4,7 +4,6 @@ module OrderConcern
   included do    
     after_update :notify_user_if_arrive_store
     after_update :create_order_blacklist
-    # after_create :inspec_order_blacklist
   end
 
   def notify_user_if_arrive_store
@@ -16,13 +15,13 @@ module OrderConcern
 
   def create_order_blacklist
     if (status_changed? && status == "未取訂貨")
-      # OrderBlacklist.create(email: self.ship_email, phone: self.ship_phone)
       create_new_blacklist
     end
   end
 
   def inspec_order_blacklist
-    if OrderBlacklist.email_blacklists.include?(self.ship_email) || OrderBlacklist.phone_blacklists.include?(self.ship_phone)
+    # if OrderBlacklist.email_blacklists.include?(self.ship_email) || OrderBlacklist.phone_blacklists.include?(self.ship_phone)
+    if check_blacklists
       create_new_blacklist
     end
   end
@@ -41,6 +40,6 @@ module OrderConcern
   end
 
   def create_new_blacklist
-    OrderBlacklist.create(email: self.ship_email, phone: self.ship_phone) 
+    OrderBlacklist.find_or_create_by(email: self.ship_email, phone: self.ship_phone) 
   end
 end

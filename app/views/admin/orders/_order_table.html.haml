@@ -59,6 +59,8 @@
             未取訂貨：#{statuses_count[Order.statuses["未取訂貨"]]}
             %br
             = render partial: "order_status_tooltip", locals:{ order: order, statuses_count: statuses_count }
+            %hr
+            = blacklist_warning(order)
           %td
             %table.table.table-bordered
               %thead
