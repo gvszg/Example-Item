@@ -1,0 +1,8 @@
+.row
+  .col-md-12.panel-warning
+    .content-box-header.panel-heading
+      .panel-title 所有訂單列表
+    .content-box-large.box-with-header
+      = render "search_form"
+      %hr
+      = render "order_table", orders: @orders
