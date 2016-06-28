@@ -1,0 +1,12 @@
+.row
+  .col-md-12.panel-warning
+    .content-box-header.panel-heading
+      .panel-title 分類列表
+    .content-box-large.box-with-header
+      .content.row
+        - @categories.each do |category|
+          .col-sm-6.col-md-4
+            = link_to admin_category_path(category) do
+              = show_image(category.image, "120x120")
+              %h3= category.name
+              %br
